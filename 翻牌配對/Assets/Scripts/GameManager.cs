@@ -17,11 +17,13 @@ public class GameManager : MonoBehaviour
     [Header("已配對的卡牌數量")]
     public int matchedCardsCount = 0;
 
+
     void Start()
     {
         //SetupCardsToBePutIn();
         //AddNewCard(CardPattern.水蜜桃);
         GenerateRandomCards();
+
     }
 
     void SetupCardsToBePutIn()//Enum轉List
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour
         card.transform.position = positions[positionIndex].position;
 
         GameObject graphic = Instantiate(Resources.Load<GameObject>("Prefabs/圖"));
-        graphic.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/" + cardPattern.ToString());
+        graphic.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/Foods/" + cardPattern.ToString());
         graphic.transform.SetParent(card.transform);//變成牌的子物件
         graphic.transform.localPosition = new Vector3(0, 0, 0.1f);//設定座標
         graphic.transform.eulerAngles = new Vector3(0, 180, 0);//順著Y軸轉180度 翻牌時不會左右顛倒
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log("可以比對卡牌了");
             if (cardComparison[0].cardPattern == cardComparison[1].cardPattern)
             {
+                SoundManager.instance.RightAudio();
                 Debug.Log("兩張牌一樣");
                 foreach (var card in cardComparison)
                 {
@@ -108,6 +111,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                SoundManager.instance.ErrorAudio();
                 Debug.Log("兩張牌不一樣");
                 StartCoroutine(MissMatchCards());
                 //TurnBackCards();

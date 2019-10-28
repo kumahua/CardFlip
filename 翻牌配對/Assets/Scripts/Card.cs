@@ -45,5 +45,5 @@ public enum CardState
 
 public enum CardPattern
 {
-    無, fries, 柳橙, hamburger, 水蜜桃, 芭樂, pie, sandwich, sausage
+    無, 小籠包, 水餃, 牛肉麵, 珍奶, 蔥油餅, pie, 魷魚, laman
 }
