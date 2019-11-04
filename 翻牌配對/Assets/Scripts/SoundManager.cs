@@ -7,7 +7,8 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance;
 
     public AudioSource audioSource;
-    public AudioClip rightAudio, errorAudio;
+    public AudioClip rightAudio, errorAudio, lamanAudio;
+   // public Card card;
 
     public void Awake()
     {
@@ -23,6 +24,12 @@ public class SoundManager : MonoBehaviour {
     public void ErrorAudio()
     {
         audioSource.clip = errorAudio;
+        audioSource.Play();
+    }
+
+    public void Laman()
+    {
+        audioSource.clip = lamanAudio;
         audioSource.Play();
     }
 }

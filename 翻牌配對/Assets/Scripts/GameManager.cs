@@ -63,9 +63,9 @@ public class GameManager : MonoBehaviour
 
         GameObject graphic = Instantiate(Resources.Load<GameObject>("Prefabs/圖"));
         graphic.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/Foods/" + cardPattern.ToString());
-        graphic.transform.SetParent(card.transform);//變成牌的子物件
-        graphic.transform.localPosition = new Vector3(0, 0, 0.1f);//設定座標
-        graphic.transform.eulerAngles = new Vector3(0, 180, 0);//順著Y軸轉180度 翻牌時不會左右顛倒
+        graphic.transform.SetParent(card.transform); //變成牌的子物件
+        graphic.transform.localPosition = new Vector3(0, 0, 0.1f); //設定座標
+        graphic.transform.eulerAngles = new Vector3(0, 180, 0); //順著Y軸轉180度 翻牌時不會左右顛倒
     }
 
     public void AddCardInCardComparison(Card card)
@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MissMatchCards()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.1f);
         TurnBackCards();
         ClearCardComparison();
     }

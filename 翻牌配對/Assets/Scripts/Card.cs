@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
     public CardState cardState;
     public CardPattern cardPattern;
     public GameManager gameManager;
+//    public static Card card;
 
     void Start()
     {
@@ -26,15 +27,29 @@ public class Card : MonoBehaviour
             return;
         }
 
+        if (cardState.Equals(CardState.配對成功))
+        {
+            return;
+        }
+
         OpenCard();
         gameManager.AddCardInCardComparison(this);
+
         gameManager.CompareCardsInList();
     }
     void OpenCard()
     {
         transform.eulerAngles = new Vector3(0, 180, 0);
+        Foodsound();
         cardState = CardState.已翻牌;
         GetComponent<AudioSource>().Play();
+    }
+    private void Foodsound()
+    {
+        if (cardPattern.Equals(CardPattern.laman))
+        {
+            SoundManager.instance.Laman();
+        }
     }
 }
 
