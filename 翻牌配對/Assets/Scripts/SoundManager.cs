@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager instance;
 
     public AudioSource audioSource;
-    public AudioClip rightAudio, errorAudio, lamanAudio;
+    public AudioClip rightAudio, errorAudio, lamanAudio, pearlmilkAudio, tofuAudio, meatriceAudio ,bloodcakeAudio;
    // public Card card;
 
     public void Awake()
@@ -27,9 +27,25 @@ public class SoundManager : MonoBehaviour {
         audioSource.Play();
     }
 
-    public void Laman()
+    public void Pearlmilk()
     {
-        audioSource.clip = lamanAudio;
+        audioSource.clip = pearlmilkAudio;
+        audioSource.Play();
+    }
+
+    public void Stinktofu()
+    {
+        audioSource.clip = tofuAudio;
+        audioSource.Play();
+    }
+    public void Meatrice()
+    {
+        audioSource.clip = meatriceAudio;
+        audioSource.Play();
+    }
+    public void Bloodcake()
+    {
+        audioSource.clip = bloodcakeAudio;
         audioSource.Play();
     }
 }

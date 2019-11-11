@@ -46,9 +46,17 @@ public class Card : MonoBehaviour
     }
     private void Foodsound()
     {
-        if (cardPattern.Equals(CardPattern.laman))
+        if (cardPattern.Equals(CardPattern.臭豆腐))
         {
-            SoundManager.instance.Laman();
+            SoundManager.instance.Stinktofu();
+        }
+        else if(cardPattern.Equals(CardPattern.珍奶))
+        {
+            SoundManager.instance.Pearlmilk();
+        }
+        else if(cardPattern.Equals(CardPattern.滷肉飯))
+        {
+            SoundManager.instance.Meatrice();
         }
     }
 }
@@ -60,5 +68,5 @@ public enum CardState
 
 public enum CardPattern
 {
-    無, 小籠包, 水餃, 牛肉麵, 珍奶, 蔥油餅, pie, 魷魚, laman
+    無, 小籠包, 臭豆腐, 牛肉麵, 珍奶, 蔥油餅, 豬血糕, 滷肉飯, 鳥蛋
 }
