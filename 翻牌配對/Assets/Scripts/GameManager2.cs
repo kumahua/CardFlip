@@ -1,0 +1,150 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
+
+public class GameManager2 : MonoBehaviour
+{
+    [Header("比對卡牌的清單")]
+    public List<Card2> cardComparison;
+
+    [Header("卡牌種類清單")]
+    public List<CardPattern2> cardsToBePutIn;
+
+    public Transform[] positions;
+
+    [Header("已配對的卡牌數量")]
+    public int matchedCardsCount = 0;
+
+
+    void Start()
+    {
+        //SetupCardsToBePutIn();
+        //AddNewCard(CardPattern.水蜜桃);
+        GenerateRandomCards();
+
+    }
+
+    void SetupCardsToBePutIn() //Enum轉List
+    {
+        Array array = Enum.GetValues(typeof(CardPattern2));
+        foreach (var item in array)
+        {
+            cardsToBePutIn.Add((CardPattern2)item);
+        }
+        cardsToBePutIn.RemoveAt(0); //刪掉Cardpattern.無
+    }
+
+    void GenerateRandomCards()//發牌
+    {
+        int positionIndex = 0;
+        for (int i = 0; i < 2; i++)
+        {
+            SetupCardsToBePutIn();//準備卡牌
+            
+            int maxRandomNumber = cardsToBePutIn.Count;//最大亂數不超過8
+            for (int j = 0; j < maxRandomNumber; maxRandomNumber--)
+            {
+                int randomNumber = UnityEngine.Random.Range(0, maxRandomNumber);//0到8之間產生亂數 最小是0 最大是7
+                AddNewCard(cardsToBePutIn[randomNumber], positionIndex);//抽牌
+                cardsToBePutIn.RemoveAt(randomNumber);
+                positionIndex++;
+            }
+        }
+    }
+
+    void AddNewCard(CardPattern2 cardPattern, int positionIndex)
+    {
+        GameObject card2 = Instantiate(Resources.Load<GameObject>("Prefabs/test/牌2"));  //Instantiate 產生一個物件，從resources讀取"牌"
+        card2.GetComponent<Card2>().cardPattern = cardPattern; //取得Card腳本中的cardPattern
+        card2.name = "牌_" + cardPattern.ToString(); //改名稱
+        card2.transform.position = positions[positionIndex].position;
+
+        GameObject graphic = Instantiate(Resources.Load<GameObject>("Prefabs/圖")); //Instantiate 產生一個物件，從resources讀取"圖"
+        graphic.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/Foods/" + cardPattern.ToString());
+        graphic.transform.SetParent(card2.transform); //變成牌的子物件
+        graphic.transform.localPosition = new Vector3(0, 0, 0.1f); //設定座標
+        graphic.transform.eulerAngles = new Vector3(0, 180, 0); //順著Y軸轉180度 翻牌時不會左右顛倒
+    }
+
+    public void AddCardInCardComparison(Card2 card2)
+    {
+        cardComparison.Add(card2);
+    }
+
+    public bool ReadyToCompareCards
+    {
+        get
+        {
+            if (cardComparison.Count == 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public void CompareCardsInList()
+    {
+        if (ReadyToCompareCards)
+        {
+            //Debug.Log("可以比對卡牌了");
+            if (cardComparison[0].cardPattern == cardComparison[1].cardPattern)
+            {
+//                SoundManager.instance.RightAudio();
+                Debug.Log("兩張牌一樣");
+                foreach (var card in cardComparison)
+                {
+                    card.cardState = CardState2.配對成功;
+                }
+
+                ClearCardComparison();
+                matchedCardsCount = matchedCardsCount + 2;
+                if (matchedCardsCount >= positions.Length)
+                {
+                    StartCoroutine(ReloadScene());
+                }
+            }
+            else
+            {
+//                SoundManager.instance.ErrorAudio();
+                Debug.Log("兩張牌不一樣");
+                StartCoroutine(MissMatchCards());
+                //TurnBackCards();
+                //ClearCardComparison();
+            }
+        }
+    }
+
+    void ClearCardComparison()
+    {
+        cardComparison.Clear();
+    }
+
+    void TurnBackCards()
+    {
+        foreach (var card in cardComparison)
+        {
+            card.gameObject.transform.eulerAngles = Vector3.zero;
+            //card.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            card.cardState = CardState2.未翻牌;
+        }
+    }
+
+    IEnumerator MissMatchCards()
+    {
+        yield return new WaitForSeconds(1.1f);
+        TurnBackCards();
+        ClearCardComparison();
+    }
+
+    IEnumerator ReloadScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}
