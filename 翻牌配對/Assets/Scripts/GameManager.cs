@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
     void GenerateRandomCards()//發牌
     {
         int positionIndex = 0;
-
         for (int i = 0; i < 2; i++)
         {
             SetupCardsToBePutIn();//準備卡牌
