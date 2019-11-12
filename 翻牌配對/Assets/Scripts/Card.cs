@@ -9,13 +9,13 @@ public class Card : MonoBehaviour
     public GameManager gameManager;
 //    public static Card card;
 
-    void Start()
+    public void Start()
     {
         cardState = CardState.未翻牌;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnMouseUp()
+    public void OnMouseUp()
     {
         if (cardState.Equals(CardState.已翻牌))
         {
@@ -44,7 +44,7 @@ public class Card : MonoBehaviour
         cardState = CardState.已翻牌;
         GetComponent<AudioSource>().Play();
     }
-    private void Foodsound()
+    public void Foodsound()
     {
         if (cardPattern.Equals(CardPattern.臭豆腐))
         {

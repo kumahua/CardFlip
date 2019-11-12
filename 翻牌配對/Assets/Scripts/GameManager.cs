@@ -26,14 +26,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void SetupCardsToBePutIn()//Enum轉List
+    void SetupCardsToBePutIn() //Enum轉List
     {
         Array array = Enum.GetValues(typeof(CardPattern));
         foreach (var item in array)
         {
             cardsToBePutIn.Add((CardPattern)item);
         }
-        cardsToBePutIn.RemoveAt(0);//刪掉Cardpattern.無
+        cardsToBePutIn.RemoveAt(0); //刪掉Cardpattern.無
     }
 
     void GenerateRandomCards()//發牌
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             SetupCardsToBePutIn();//準備卡牌
+            
             int maxRandomNumber = cardsToBePutIn.Count;//最大亂數不超過8
             for (int j = 0; j < maxRandomNumber; maxRandomNumber--)
             {
@@ -55,12 +56,12 @@ public class GameManager : MonoBehaviour
 
     void AddNewCard(CardPattern cardPattern, int positionIndex)
     {
-        GameObject card = Instantiate(Resources.Load<GameObject>("Prefabs/牌"));
-        card.GetComponent<Card>().cardPattern = cardPattern;
-        card.name = "牌_" + cardPattern.ToString();
+        GameObject card = Instantiate(Resources.Load<GameObject>("Prefabs/牌"));  //Instantiate 產生一個物件，從resources讀取"牌"
+        card.GetComponent<Card>().cardPattern = cardPattern; //取得Card腳本中的cardPattern
+        card.name = "牌_" + cardPattern.ToString(); //改名稱
         card.transform.position = positions[positionIndex].position;
 
-        GameObject graphic = Instantiate(Resources.Load<GameObject>("Prefabs/圖"));
+        GameObject graphic = Instantiate(Resources.Load<GameObject>("Prefabs/圖")); //Instantiate 產生一個物件，從resources讀取"圖"
         graphic.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Graphics/Foods/" + cardPattern.ToString());
         graphic.transform.SetParent(card.transform); //變成牌的子物件
         graphic.transform.localPosition = new Vector3(0, 0, 0.1f); //設定座標
