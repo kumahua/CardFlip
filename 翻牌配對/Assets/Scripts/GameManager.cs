@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
     [Header("比對卡牌的清單")]
     public List<Card> cardComparison;
 
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log("可以比對卡牌了");
             if (cardComparison[0].cardPattern == cardComparison[1].cardPattern)
             {
-                SoundManager.instance.RightAudio();
+                //SoundManager.instance.RightAudio();
                 Debug.Log("兩張牌一樣");
                 foreach (var card in cardComparison)
                 {
@@ -106,12 +107,13 @@ public class GameManager : MonoBehaviour
                 matchedCardsCount = matchedCardsCount + 2;
                 if (matchedCardsCount >= positions.Length)
                 {
-                    StartCoroutine(ReloadScene());
+                    // StartCoroutine(ReloadScene());
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
                 }
             }
             else
             {
-                SoundManager.instance.ErrorAudio();
+                //SoundManager.instance.ErrorAudio();
                 Debug.Log("兩張牌不一樣");
                 StartCoroutine(MissMatchCards());
                 //TurnBackCards();

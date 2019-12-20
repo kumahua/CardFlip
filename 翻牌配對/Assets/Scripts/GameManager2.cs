@@ -57,7 +57,7 @@ public class GameManager2 : MonoBehaviour
     void AddNewCard(CardPattern2 cardPattern, int positionIndex)
     {
         GameObject card2 = Instantiate(Resources.Load<GameObject>("Prefabs/test/牌2"));  //Instantiate 產生一個物件，從resources讀取"牌"
-        card2.GetComponent<Card2>().cardPattern = cardPattern; //取得Card腳本中的cardPattern
+        card2.GetComponent<Card2>().cardPattern2 = cardPattern; //取得Card腳本中的cardPattern
         card2.name = "牌_" + cardPattern.ToString(); //改名稱
         card2.transform.position = positions[positionIndex].position;
 
@@ -93,7 +93,7 @@ public class GameManager2 : MonoBehaviour
         if (ReadyToCompareCards)
         {
             //Debug.Log("可以比對卡牌了");
-            if (cardComparison[0].cardPattern == cardComparison[1].cardPattern)
+            if (cardComparison[0].cardPattern2 == cardComparison[1].cardPattern2)
             {
 //                SoundManager.instance.RightAudio();
                 Debug.Log("兩張牌一樣");
@@ -145,6 +145,7 @@ public class GameManager2 : MonoBehaviour
     IEnumerator ReloadScene()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

@@ -7,7 +7,8 @@ public class Card : MonoBehaviour
     public CardState cardState;
     public CardPattern cardPattern;
     public GameManager gameManager;
-//    public static Card card;
+    public static Card card;
+    //    public static Card card;
 
     public void Start()
     {
@@ -31,18 +32,18 @@ public class Card : MonoBehaviour
         {
             return;
         }
-
         OpenCard();
+
         gameManager.AddCardInCardComparison(this);
 
         gameManager.CompareCardsInList();
     }
     void OpenCard()
     {
-        transform.eulerAngles = new Vector3(0, 180, 0);
-        Foodsound();
-        cardState = CardState.已翻牌;
         GetComponent<AudioSource>().Play();
+        StartCoroutine(ReloadMusic());
+        transform.eulerAngles = new Vector3(0, 180, 0);
+        cardState = CardState.已翻牌;
     }
     public void Foodsound()
     {
@@ -50,14 +51,41 @@ public class Card : MonoBehaviour
         {
             SoundManager.instance.Stinktofu();
         }
-        else if(cardPattern.Equals(CardPattern.珍奶))
+        else if(cardPattern.Equals(CardPattern.蚵仔煎))
         {
-            SoundManager.instance.Pearlmilk();
+            SoundManager.instance.蚵仔煎();
         }
         else if(cardPattern.Equals(CardPattern.滷肉飯))
         {
             SoundManager.instance.Meatrice();
         }
+        else if (cardPattern.Equals(CardPattern.刈包))
+        {
+            SoundManager.instance.刈包();
+        }
+        else if (cardPattern.Equals(CardPattern.雞排))
+        {
+            SoundManager.instance.雞排();
+        }
+        else if (cardPattern.Equals(CardPattern.地瓜球))
+        {
+            SoundManager.instance.地瓜球();
+        }
+        else if (cardPattern.Equals(CardPattern.豬血糕))
+        {
+            SoundManager.instance.Bloodcake();
+        }
+        else if (cardPattern.Equals(CardPattern.豬腳飯))
+        {
+            SoundManager.instance.豬腳飯();
+        }
+    }
+
+    IEnumerator ReloadMusic()
+    {
+        //yield return new WaitForSeconds(0.1f);
+        Foodsound();
+        yield return new WaitForSeconds(2f);
     }
 }
 
@@ -68,5 +96,5 @@ public enum CardState
 
 public enum CardPattern
 {
-    無, 小籠包, 臭豆腐, 牛肉麵, 珍奶, 蔥油餅, 豬血糕, 滷肉飯, 鳥蛋
+    無, 地瓜球, 臭豆腐, 雞排, 刈包, 蚵仔煎, 豬血糕, 滷肉飯, 豬腳飯
 }

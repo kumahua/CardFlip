@@ -5,9 +5,10 @@ using UnityEngine;
 public class Card2 : MonoBehaviour
 {
     public CardState2 cardState;
-    public CardPattern2 cardPattern;
+    public CardPattern2 cardPattern2;
     public GameManager2 gameManager2;
-//    public static Card card;
+    public static Card2 card;
+    //    public static Card card;
 
     public void Start()
     {
@@ -46,17 +47,21 @@ public class Card2 : MonoBehaviour
     }
     public void Foodsound()
     {
-        if (cardPattern.Equals(CardPattern.臭豆腐))
+        if (cardPattern2.Equals(CardPattern2.鹽酥雞))
         {
-            SoundManager.instance.Stinktofu();
+            SoundManager.instance.鹽酥雞();
         }
-        else if(cardPattern.Equals(CardPattern.珍奶))
+        else if(cardPattern2.Equals(CardPattern2.烤玉米))
+        {
+            SoundManager.instance.烤玉米();
+        }
+        else if(cardPattern2.Equals(CardPattern2.紅豆餅))
+        {
+            SoundManager.instance.紅豆餅();
+        }
+        else if (cardPattern2.Equals(CardPattern2.珍奶))
         {
             SoundManager.instance.Pearlmilk();
-        }
-        else if(cardPattern.Equals(CardPattern.滷肉飯))
-        {
-            SoundManager.instance.Meatrice();
         }
     }
 }
@@ -68,5 +73,5 @@ public enum CardState2
 
 public enum CardPattern2
 {
-    無, 小籠包, 臭豆腐, 牛肉麵, 珍奶,
+    無, 鹽酥雞, 烤玉米, 紅豆餅, 珍奶
 }
