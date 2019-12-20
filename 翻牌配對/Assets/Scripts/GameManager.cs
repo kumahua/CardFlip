@@ -107,8 +107,7 @@ public class GameManager : MonoBehaviour
                 matchedCardsCount = matchedCardsCount + 2;
                 if (matchedCardsCount >= positions.Length)
                 {
-                    // StartCoroutine(ReloadScene());
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+                     StartCoroutine(ReloadScene());
                 }
             }
             else
@@ -146,7 +145,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ReloadScene()
     {
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        yield return new WaitForSeconds(2);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 }
